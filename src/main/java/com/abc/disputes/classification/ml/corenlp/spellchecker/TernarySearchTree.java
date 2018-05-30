@@ -6,6 +6,8 @@ import static com.abc.common.utils.MLConstants.WORD_FREQ_MAP;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
+import java.io.File;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class TernarySearchTree {
 
 		long startTime = System.currentTimeMillis();
 
-		long totalRows =Try.of(() -> Files.lines(Paths.get(this.getClass().getClassLoader().getResource(WORD_FREQ_MAP).getPath())).
+		long totalRows =Try.of(() -> Files.lines(Paths.get(new File(URLDecoder.decode(this.getClass().getClassLoader().getResource(WORD_FREQ_MAP).getPath(), "utf-8")).getPath())).
 				filter(keyValuePair -> !keyValuePair.isEmpty()).
 				map(line -> {
 					insert(line.split("=")[0].trim(),line.split("=")[1].trim());

@@ -13,6 +13,9 @@ import opennlp.tools.tokenize.TokenizerModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -100,8 +103,8 @@ public class NLPUtils {
 
     }
 
-    public static Path getFilePath(final String filePath) {
-        return Paths.get(NLPUtils.class.getClassLoader().getResource(filePath).getPath());
+    public static Path getFilePath(final String filePath) throws UnsupportedEncodingException {
+        return Paths.get(new File(URLDecoder.decode(NLPUtils.class.getClassLoader().getResource(filePath).getPath(), "utf-8")).getPath());
     }
 
     public static boolean isNumber(final String token) {
